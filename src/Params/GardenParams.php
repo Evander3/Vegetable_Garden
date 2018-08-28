@@ -5,26 +5,24 @@ namespace App\Params;
 
 class GardenParams
 {
-    private static $post;
+    private $post;
 
-    public function __construct($post)
-    {
-        self::$post = $post;
-    }
+    // public function __construct($post)
+    // {
+    //     $this->post = $post;
+    // }
 
-    public function extractGardenParams(): void
+    public function setInSession(array &$post): void
     {
-        foreach (self::$post as $key => &$val)
+        foreach ($post as $key => &$val)
         {
             $val = intval($val);
             $_SESSION[$key]=$val;
             // if (substr($key, -3) == '_sf') {
-            // } elseif (substr($key, -3) == '_ph')
-            // {
-            // } elseif (substr($key, -3) == '_tp')
-            // {
-            // } else
-            // {
+                // array_push
+            // } elseif (substr($key, -3) == '_ph') {
+            // } elseif (substr($key, -3) == '_tp') {
+            // } else {
             //     // prolly should add some exception right ?
             //     break;
             // }

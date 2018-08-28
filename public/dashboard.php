@@ -17,7 +17,7 @@
 </head>
 <body class="container">
 
-<?php include("../src/navigation_bar.php"); ?>
+<?php include("../src/navigation_bar.html"); ?>
 
 <br />
 <h2>Votre simulateur de jardinage</h2>

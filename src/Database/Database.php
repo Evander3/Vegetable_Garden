@@ -7,10 +7,11 @@ class Database
 {
     private $pdo;
     static private $instance;
+    private const DB_NAME = 'test';
 
     private function __construct()
     {
-        $this->pdo = new \PDO('mysql:dbname=test;host=localhost', 'root', '');
+        $this->pdo = new \PDO("mysql:dbname=".self::DB_NAME.";host=localhost", 'root', '');
     }
     static public function create(): self
     {

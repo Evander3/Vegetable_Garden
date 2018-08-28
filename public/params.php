@@ -10,8 +10,8 @@
     var_dump($_POST);
     echo '</pre>';
 
-    $raw = new GardenParams($_POST);
-    $raw->extractGardenParams();
+    $raw = new GardenParams();
+    $raw->setInSession($_POST);
 
     echo '<pre>';
     var_dump($_SESSION);
@@ -27,7 +27,7 @@
 </head>
 <body class="container">
 
-<?php include("../src/navigation_bar.php"); ?>
+<?php include("../src/navigation_bar.html"); ?>
 
 <br />
 <h2>Paramètrage de votre potager</h2>
