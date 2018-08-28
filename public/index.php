@@ -12,7 +12,7 @@
 </head>
 <body class="container">
 
-<?php include("../src/navigation_bar.php"); ?>
+<?php include("../src/navigation_bar.html"); ?>
 
 <br />
 <h1>Vegetable Garden</h1>
