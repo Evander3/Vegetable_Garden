@@ -3,19 +3,30 @@
     require_once __DIR__.'/../vendor/autoload.php';
 
     use App\Params\GardenParams as GardenParams;
+    use App\Database\DB_Link as DB_Link;
 
     session_start();
 
-    echo '<pre>';
-    var_dump($_POST);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
 
-    $raw = new GardenParams();
-    $raw->setInSession($_POST);
+    // the following line set the values in sessions
+    // (GardenParams::create())->setParamsInSession($_POST);
+    // the following line get the data
+    $data = (GardenParams::create())::getParams($_POST);
 
-    echo '<pre>';
-    var_dump($_SESSION);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($data);
+    // echo '</pre>';
+
+    // now let's get them in database then erase from browser
+    DB_Link::create()::sendParams($data);
+    unset($data, $pdo);
+
+    // echo '<pre>';
+    // var_dump($pdo);
+    // echo '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +94,7 @@
             <td>Courgette</td>
             <td><input name="courgette_sf" type="number" value=20 min=0 max=25 class="form-control" required></td>
             <td><input name="courgette_ph" type="number" value=7 min=0 max=14 class="form-control" required></td>
-            <td><input name="tomate_tp" type="hidden" value="fruit" class="form-control" required></td>
+            <td><input name="courgette_tp" type="hidden" value="fruit" class="form-control" required></td>
         </tr>
         <tr>
             <td colspan="3">

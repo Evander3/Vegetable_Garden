@@ -5,30 +5,57 @@ namespace App\Params;
 
 class GardenParams
 {
+    private static $instance = NULL ;
     private $post;
 
-    // public function __construct($post)
-    // {
-    //     $this->post = $post;
-    // }
+    private function __construct() {}
 
-    public function setInSession(array &$post): void
+    static public function create(): self
+    {
+        if (self::$instance === NULL)
+        {
+            self::$instance = new GardenParams();
+        }
+        return self::$instance;
+    }
+
+    // not to use, no longer set Params in session, check getParams
+    public function setParamsInSession(array &$post): void
     {
         foreach ($post as $key => &$val)
         {
-            $val = intval($val);
-            $_SESSION[$key]=$val;
-            // if (substr($key, -3) == '_sf') {
-                // array_push
-            // } elseif (substr($key, -3) == '_ph') {
-            // } elseif (substr($key, -3) == '_tp') {
-            // } else {
-            //     // prolly should add some exception right ?
-            //     break;
-            // }
+            switch (substr($key, -3)) {
+                case '_sf':
+                    $_SESSION[substr($key,0,-3)]['surf']=intval($val);
+                case '_ph':
+                    $_SESSION[substr($key,0,-3)]['ph']=intval($val);
+                case '_tp':
+                    $_SESSION[substr($key,0,-3)]['type']=$val;
+            }
         }
-        unset($key);
-        unset($value);
+        unset($key, $value);
+    }
+
+    public static function getParams(array $input): array
+    {
+        $post = array();
+        foreach ($input as $key => &$val)
+        {
+            switch (substr($key, -3)) {
+                case '_sf':
+                    $post[substr($key,0,-3)]['surf']=intval($val);
+                case '_ph':
+                    $post[substr($key,0,-3)]['ph']=intval($val);
+                case '_tp':
+                    $post[substr($key,0,-3)]['type']=$val;
+            }
+        }
+        
+        echo '<pre>';
+        var_dump($post);
+        echo '</pre>';
+        unset($key, $value);
+        return $post;
     }
     
 }
